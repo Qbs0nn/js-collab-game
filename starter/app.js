@@ -87,7 +87,9 @@ function rozejrzyj() {
 function idz(kierunek) {
   let nastepnyPokoj = pokoj;
   // TODO B1: zablokuj ruch po koncu gry. 
+  if(energia == 0 ) {koniec = true};
   if(koniec){
+    
     console.log("Nie możesz wykonać ruchu po końcu gry.");
     return;
   }
