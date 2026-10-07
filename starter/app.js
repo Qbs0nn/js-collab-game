@@ -35,8 +35,18 @@ function zakonczTure() {
 
 // SEKCJA A — INFORMACJE I MAPA
 function nazwaPokoju(numer) {
-  // TODO A1: switch; zwroc nazwe pokoju jako tekst.
-  return "Nazwa do uzupelnienia";
+  switch(numer) {
+    case 1:
+      return "Recepcja"
+    case 2:
+      return "Magazyn"
+    case 3:
+      return "Serwerownia"
+    case 4:
+      return "Wyjście"
+    default:
+      return "Nieznane pomieszczenie" 
+  }
 }
 function pomoc() {
   console.log('Dostepne: start(), pomoc(), status(), mapa(), rozejrzyj(), idz("prawo"), akcja("karta")');
@@ -44,7 +54,14 @@ function pomoc() {
 }
 function status() {
   // TODO A3: wypisz pokoj, energie, przedmioty, zasilanie i stan gry.
-  console.log("Status do uzupelnienia");
+  console.log(`Aktualny status: Pokój: ${nazwaPokoju(pokoj)}; pozostała energia: ${energia}; posiadane przedmioty: ${
+    karta ? 'karta' : '' &&
+    bezpiecznik ? 'bezpiecznik' : ''
+  }
+  ; Stan zasilania: ${zasilanie ? 'Zasilanie włączone!' : 'Zasilanie wyłączone'};
+  Stan gry: ${
+    koniec ? 'Gra zakonczona' : 'Gra w trakcie' && 
+    wygrana ? 'Gra wygrana' : ''}`);
 }
 function mapa() {
   // TODO A2: petla for od 1 do 4; nazwa i znacznik aktualnego pokoju.
