@@ -53,7 +53,6 @@ function pomoc() {
   // TODO A5: dopisz pozostale kierunki i akcje oraz zasade kosztu.
 }
 function status() {
-  // TODO A3: wypisz pokoj, energie, przedmioty, zasilanie i stan gry.
   console.log(`Aktualny status: Pokój: ${nazwaPokoju(pokoj)}; pozostała energia: ${energia}; posiadane przedmioty: ${ karta ? 'karta' : '' }
   ${ bezpiecznik ? 'bezpiecznik' : '' }; Stan zasilania: ${zasilanie ? 'Zasilanie włączone!' : 'Zasilanie wyłączone'};
   Stan gry: ${ koniec ? 'Gra zakonczona' : 'Gra w trakcie' }`);
@@ -85,15 +84,13 @@ function rozejrzyj() {
 
 // SEKCJA B — RUCH
 function idz(kierunek) {
-  let nastepnyPokoj = pokoj;
-  // TODO B1: zablokuj ruch po koncu gry. 
+  let nastepnyPokoj = pokoj; 
   if(energia == 0 ) {koniec = true};
   if(koniec){
     
     console.log("Nie możesz wykonać ruchu po końcu gry.");
     return;
   }
-  // TODO B2: switch kierunku; oblicz kandydat na nowy pokoj.
   switch(kierunek) {
     case "prawo": {
       
@@ -123,10 +120,6 @@ function idz(kierunek) {
   
   pokoj = nastepnyPokoj;
   rozejrzyj();
-
-  
-  // TODO B3: odrzuc pokoj poza 1..4 i nieznany kierunek bez kosztu.
-  // TODO B4: zapisz poprawny pokoj, rozejrzyj(), zakonczTure().
   console.log("Ruch do uzupelnienia");
 }
 
@@ -168,11 +161,6 @@ function akcja(co) {
       break
   }
   zakonczTure()
-  // TODO C2: switch: karta / bezpiecznik / napraw / wyjdz.
-  // TODO C2: przed zmiana sprawdz pokoj i wymagany stan.
-  // TODO C3: przy odrzuceniu return; przy sukcesie break.
-  // TODO C3: po switch jedno zakonczTure().
-  // TODO C4: wygrana i koniec ustawione przed rozliczeniem tury!
 }
 
 start();
