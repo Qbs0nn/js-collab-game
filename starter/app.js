@@ -120,15 +120,6 @@ function idz(kierunek) {
   
   pokoj = nastepnyPokoj;
   rozejrzyj();
-<<<<<<< HEAD
-  console.log("Ruch do uzupelnienia");
-=======
-
-  
-  // TODO B3: odrzuc pokoj poza 1..4 i nieznany kierunek bez kosztu.
-  // TODO B4: zapisz poprawny pokoj, rozejrzyj(), zakonczTure().
-
->>>>>>> feature/ruch
 }
 
 // SEKCJA C — PRZEDMIOTY I WYGRANA
