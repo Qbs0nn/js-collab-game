@@ -132,18 +132,21 @@ function akcja(co) {
     case "karta":
       if(!karta && pokoj == 1) {
         console.log("Podniesiono karte!")
+        zakonczTure()
         karta = true
       }
       break
     case "bezpiecznik":
       if(!bezpiecznik && pokoj == 2) {
         console.log("Podniesiono bezpiecznik!")
+        zakonczTure()
         bezpiecznik = true
       }
       break
     case "zasilanie":
       if(bezpiecznik && !zasilanie && pokoj == 3) {
         console.log("Właczono zasilanie!")
+        zakonczTure()
         zasilanie = true
         bezpiecznik = false
       }
@@ -151,6 +154,7 @@ function akcja(co) {
     case "wyjscie":
       if(zasilanie && karta && pokoj == 4) {
         console.log("gg, gj")
+        zakonczTure()
         wygrana = true
         koniec = true
       }
@@ -159,7 +163,6 @@ function akcja(co) {
       console.log("Nieznany przedmiot")
       break
   }
-  zakonczTure()
 }
 
 start();
