@@ -54,15 +54,10 @@ function pomoc() {
 }
 function status() {
   // TODO A3: wypisz pokoj, energie, przedmioty, zasilanie i stan gry.
-  console.log(`Aktualny status: Pokój: ${nazwaPokoju(pokoj)}; pozostała energia: ${energia}; posiadane przedmioty: ${
-    karta ? 'karta' : '' &&
-    bezpiecznik ? 'bezpiecznik' : ''
-  }
-  ; Stan zasilania: ${zasilanie ? 'Zasilanie włączone!' : 'Zasilanie wyłączone'};
-  Stan gry: ${
-    koniec ? 'Gra zakonczona' : 'Gra w trakcie' && 
-    wygrana ? 'Gra wygrana' : ''}`);
-}
+  console.log(`Aktualny status: Pokój: ${nazwaPokoju(pokoj)}; pozostała energia: ${energia}; posiadane przedmioty: ${ karta ? 'karta' : '' }
+  ${ bezpiecznik ? 'bezpiecznik' : '' }; Stan zasilania: ${zasilanie ? 'Zasilanie włączone!' : 'Zasilanie wyłączone'};
+  Stan gry: ${ koniec ? 'Gra zakonczona' : 'Gra w trakcie' }`);
+}   
 function mapa() {
   for(let i = 1; i <= 4; i++) {
     console.log(`${nazwaPokoju(i)} ${i == pokoj ? "-> Aktualny pokoj" : ""}`)
