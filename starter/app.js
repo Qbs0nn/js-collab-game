@@ -64,8 +64,9 @@ function status() {
     wygrana ? 'Gra wygrana' : ''}`);
 }
 function mapa() {
-  // TODO A2: petla for od 1 do 4; nazwa i znacznik aktualnego pokoju.
-  console.log("Mapa do uzupelnienia");
+  for(let i = 1; i <= 4; i++) {
+    console.log(`${nazwaPokoju(i)} ${i == pokoj ? "-> Aktualny pokoj" : ""}`)
+  }
 }
 function rozejrzyj() {
   // TODO A4: switch(pokoj); opis zgodny ze stanem przedmiotow.
