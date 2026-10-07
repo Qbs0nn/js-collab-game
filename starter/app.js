@@ -35,8 +35,18 @@ function zakonczTure() {
 
 // SEKCJA A — INFORMACJE I MAPA
 function nazwaPokoju(numer) {
-  // TODO A1: switch; zwroc nazwe pokoju jako tekst.
-  return "Nazwa do uzupelnienia";
+  switch(numer) {
+    case 1:
+      return "Recepcja"
+    case 2:
+      return "Magazyn"
+    case 3:
+      return "Serwerownia"
+    case 4:
+      return "Wyjście"
+    default:
+      return "Nieznane pomieszczenie" 
+  }
 }
 function pomoc() {
   console.log('Dostepne: start(), pomoc(), status(), mapa(), rozejrzyj(), idz("prawo"), akcja("karta")');
@@ -44,15 +54,33 @@ function pomoc() {
 }
 function status() {
   // TODO A3: wypisz pokoj, energie, przedmioty, zasilanie i stan gry.
-  console.log("Status do uzupelnienia");
-}
+  console.log(`Aktualny status: Pokój: ${nazwaPokoju(pokoj)}; pozostała energia: ${energia}; posiadane przedmioty: ${ karta ? 'karta' : '' }
+  ${ bezpiecznik ? 'bezpiecznik' : '' }; Stan zasilania: ${zasilanie ? 'Zasilanie włączone!' : 'Zasilanie wyłączone'};
+  Stan gry: ${ koniec ? 'Gra zakonczona' : 'Gra w trakcie' }`);
+}   
 function mapa() {
-  // TODO A2: petla for od 1 do 4; nazwa i znacznik aktualnego pokoju.
-  console.log("Mapa do uzupelnienia");
+  for(let i = 1; i <= 4; i++) {
+    console.log(`${nazwaPokoju(i)} ${i == pokoj ? "-> Aktualny pokoj" : ""}`)
+  }
 }
 function rozejrzyj() {
-  // TODO A4: switch(pokoj); opis zgodny ze stanem przedmiotow.
-  console.log("Opis pokoju do uzupelnienia");
+  switch(pokoj) {
+    case 1:
+      console.log(`${!karta ? "Karta lezy na biurku" : "Wszystko w tym pokoju zostało zebrane"}`)
+      break
+    case 2:
+      console.log(`${!bezpiecznik && !zasilanie ? "Bezpiecznik leży na półce" : "Wszystko w tym pokoju zostało zabrane"}`)
+      break
+    case 3:
+      console.log(`${!zasilanie ? "Zasilanie nie zostało przywrócone" : "Zasilanie zostało przywrócone"}`)
+      break
+    case 4:
+      console.log(`${!zasilanie ? "Do wyjścia potrzebne jest przywrócenie zasilania oraz posiadanie karty" : 
+        "Zebrano wszystkie wymagane przedmioty"}`)
+      break
+    default:
+      console.log("Nieznane pomieszczenie")
+  }
 }
 
 // SEKCJA B — RUCH
