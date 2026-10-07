@@ -96,7 +96,7 @@ function idz(kierunek) {
       
       if(nastepnyPokoj < 4) {
       nastepnyPokoj = nastepnyPokoj + 1;
-      energia = energia - 1;
+        zakonczTure();
     } else {
       console.log("Napotkales sciane.");
     }
@@ -105,7 +105,7 @@ function idz(kierunek) {
     case "lewo": {  
       if(nastepnyPokoj > 1){
         nastepnyPokoj = nastepnyPokoj - 1;
-        energia = energia - 1;
+        zakonczTure();
       }
       else {
         console.log("Napotkales sciane");
@@ -120,6 +120,7 @@ function idz(kierunek) {
   
   pokoj = nastepnyPokoj;
   rozejrzyj();
+
 }
 
 // SEKCJA C — PRZEDMIOTY I WYGRANA
