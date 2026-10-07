@@ -57,8 +57,27 @@ function rozejrzyj() {
 
 // SEKCJA B — RUCH
 function idz(kierunek) {
-  // TODO B1: zablokuj ruch po koncu gry.
+  let nastepnyPokoj = pokoj;
+  // TODO B1: zablokuj ruch po koncu gry. 
+  if(koniec){
+    console.log("Nie możesz wykonać ruchu po końcu gry.");
+    return;
+  }
   // TODO B2: switch kierunku; oblicz kandydat na nowy pokoj.
+  switch(kierunek) {
+    case "prawo": {
+      // dodaj 1
+      break;
+    }
+    case "lewo": {
+      // odejmij 1
+      break;
+    }
+    case default:{
+      console.log("Nieznany kierunek! Sprobuj jeszcze raz.");
+      return;
+    }
+  }
   // TODO B3: odrzuc pokoj poza 1..4 i nieznany kierunek bez kosztu.
   // TODO B4: zapisz poprawny pokoj, rozejrzyj(), zakonczTure().
   console.log("Ruch do uzupelnienia");
