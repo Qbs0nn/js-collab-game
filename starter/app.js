@@ -94,18 +94,35 @@ function idz(kierunek) {
   // TODO B2: switch kierunku; oblicz kandydat na nowy pokoj.
   switch(kierunek) {
     case "prawo": {
-      // dodaj 1
+      
+      if(nastepnyPokoj < 4) {
+      nastepnyPokoj = nastepnyPokoj + 1;
+      energia = energia - 1;
+    } else {
+      console.log("Napotkales sciane.");
+    }
       break;
     }
-    case "lewo": {
-      // odejmij 1
+    case "lewo": {  
+      if(nastepnyPokoj > 1){
+        nastepnyPokoj = nastepnyPokoj - 1;
+        energia = energia - 1;
+      }
+      else {
+        console.log("Napotkales sciane");
+      }
       break;
     }
-    case default:{
+    default:{
       console.log("Nieznany kierunek! Sprobuj jeszcze raz.");
       return;
     }
   }
+  
+  pokoj = nastepnyPokoj;
+  rozejrzyj();
+
+  
   // TODO B3: odrzuc pokoj poza 1..4 i nieznany kierunek bez kosztu.
   // TODO B4: zapisz poprawny pokoj, rozejrzyj(), zakonczTure().
   console.log("Ruch do uzupelnienia");
