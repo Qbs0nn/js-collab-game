@@ -86,7 +86,7 @@ function rozejrzyj() {
 // SEKCJA B — RUCH
 function idz(kierunek) {
   let nastepnyPokoj = pokoj;
-  // TODO B1: zablokuj ruch po koncu gry. 
+  // TODO B1: zablokuj ruch po koncu gry.
   if(koniec){
     console.log("Nie możesz wykonać ruchu po końcu gry.");
     return;
@@ -162,7 +162,7 @@ function akcja(co) {
       }
       break
     default: 
-      console.log("Nieznane pomieszczenie")
+      console.log("Nieznany przedmiot")
       break
   }
   zakonczTure()
