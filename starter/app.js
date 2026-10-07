@@ -101,7 +101,7 @@ function idz(kierunek) {
       // odejmij 1
       break;
     }
-    case default:{
+    default:{
       console.log("Nieznany kierunek! Sprobuj jeszcze raz.");
       return;
     }
@@ -113,7 +113,41 @@ function idz(kierunek) {
 
 // SEKCJA C — PRZEDMIOTY I WYGRANA
 function akcja(co) {
-  // TODO C1: zablokuj akcje po koncu gry.
+  if(koniec) {
+    console.log("Gra została zakończona, brak możliwości wykonania akcji")
+    return
+  }
+  switch(co) {
+    case "karta":
+      if(!karta && pokoj == 1) {
+        console.log("Podniesiono karte!")
+        karta = true
+      }
+      break
+    case "bezpiecznik":
+      if(!bezpiecznik && pokoj == 2) {
+        console.log("Podniesiono bezpiecznik!")
+        bezpiecznik = true
+      }
+      break
+    case "zasilanie":
+      if(bezpiecznik && !zasilanie && pokoj == 3) {
+        console.log("Właczono zasilanie!")
+        zasilanie = true
+        bezpiecznik = false
+      }
+      break
+    case "wyjscie":
+      if(zasilanie && karta && pokoj == 4) {
+        console.log("gg, gj")
+        wygrana = true
+        koniec = true
+      }
+      break
+    default: 
+      console.log("Nieznane pomieszczenie")
+      break
+  }
   // TODO C2: switch: karta / bezpiecznik / napraw / wyjdz.
   // TODO C2: przed zmiana sprawdz pokoj i wymagany stan.
   // TODO C3: przy odrzuceniu return; przy sukcesie break.
