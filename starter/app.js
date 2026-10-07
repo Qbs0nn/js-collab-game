@@ -148,12 +148,12 @@ function akcja(co) {
       console.log("Nieznane pomieszczenie")
       break
   }
+  zakonczTure()
   // TODO C2: switch: karta / bezpiecznik / napraw / wyjdz.
   // TODO C2: przed zmiana sprawdz pokoj i wymagany stan.
   // TODO C3: przy odrzuceniu return; przy sukcesie break.
   // TODO C3: po switch jedno zakonczTure().
   // TODO C4: wygrana i koniec ustawione przed rozliczeniem tury!
-  console.log("Akcje do uzupelnienia");
 }
 
 start();
