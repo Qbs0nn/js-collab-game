@@ -64,8 +64,23 @@ function mapa() {
   }
 }
 function rozejrzyj() {
-  // TODO A4: switch(pokoj); opis zgodny ze stanem przedmiotow.
-  console.log("Opis pokoju do uzupelnienia");
+  switch(pokoj) {
+    case 1:
+      console.log(`${!karta ? "Karta lezy na biurku" : "Wszystko w tym pokoju zostało zebrane"}`)
+      break
+    case 2:
+      console.log(`${!bezpiecznik && !zasilanie ? "Bezpiecznik leży na półce" : "Wszystko w tym pokoju zostało zabrane"}`)
+      break
+    case 3:
+      console.log(`${!zasilanie ? "Zasilanie nie zostało przywrócone" : "Zasilanie zostało przywrócone"}`)
+      break
+    case 4:
+      console.log(`${!zasilanie ? "Do wyjścia potrzebne jest przywrócenie zasilania oraz posiadanie karty" : 
+        "Zebrano wszystkie wymagane przedmioty"}`)
+      break
+    default:
+      console.log("Nieznane pomieszczenie")
+  }
 }
 
 // SEKCJA B — RUCH
