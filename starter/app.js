@@ -49,7 +49,7 @@ function nazwaPokoju(numer) {
   }
 }
 function pomoc() {
-  console.log('Dostepne: start(), pomoc(), status(), mapa(), rozejrzyj(), idz("prawo"), idz("lewo"), akcja("karta"), akcja("bezpiecznik"), akcja("zasilanie"), akcja("wyjscie")');
+  console.log('Dostepne: start(), pomoc(), status(), mapa(), rozejrzyj(), idz("prawo"), idz("lewo"), akcja("karta"), akcja("bezpiecznik"), akcja("napraw"), akcja("wyjscie")');
   // TODO A5: dopisz pozostale kierunki i akcje oraz zasade kosztu.
 }
 function status() {
@@ -74,8 +74,10 @@ function rozejrzyj() {
       console.log(`${!zasilanie ? "Zasilanie nie zostało przywrócone" : "Zasilanie zostało przywrócone"}`)
       break
     case 4:
-      console.log(`${!zasilanie ? "Do wyjścia potrzebne jest przywrócenie zasilania oraz posiadanie karty" : 
-        "Zebrano wszystkie wymagane przedmioty"}`)
+      if(!karta)
+        console.log("Do wyjscia potrzebne jest jeszcze zebranie karty")
+      if(!zasilanie)
+        console.log("DO wyjscia potrzebne jest jeszcze przywrocenie zasilania")
       break
     default:
       console.log("Nieznane pomieszczenie")
@@ -136,21 +138,37 @@ function akcja(co) {
         zakonczTure()
         karta = true
       }
+      else if(karta && pokoj == 1)
+        console.log("Podniesiono juz karte")
+      else if(pokoj != 1)
+        console.log("Akcja wykonana w niewlasciwym pokokju")
       break
     case "bezpiecznik":
-      if(!bezpiecznik && pokoj == 2) {
+      if(!bezpiecznik && !zasilanie && pokoj == 2) {
         console.log("Podniesiono bezpiecznik!")
         zakonczTure()
         bezpiecznik = true
       }
+      else if(bezpiecznik && pokoj == 2)
+        console.log("Podniesiono juz bezpiecznik")
+      else if(!bezpiecznik && zasilanie)
+        console.log("Zabrano juz bezpiecznik i przywrocono zasilanie")
+      else if(pokoj != 2)
+        console.log("Akcja wykonana w niewlasciwym pokokju")
       break
-    case "zasilanie":
+    case "napraw":
       if(bezpiecznik && !zasilanie && pokoj == 3) {
         console.log("Właczono zasilanie!")
         zakonczTure()
         zasilanie = true
         bezpiecznik = false
       }
+      else if(!bezpiecznik && !zasilanie && pokoj == 3)
+        console.log("Nie mozesz teraz przywrocic zasilania. Wymagany jest bezpiecznik")
+      else if(!bezpiecznik && zasilanie && pokoj == 3)
+        console.log("Wlaczono juz zasilanie")
+      else if(pokoj != 3)
+        console.log("Akcja wykonana w niewlasciwym pokokju")
       break
     case "wyjscie":
       if(zasilanie && karta && pokoj == 4) {
@@ -159,6 +177,8 @@ function akcja(co) {
         wygrana = true
         koniec = true
       }
+      else if(pokoj != 4)
+        console.log("Akcja wykonana w niewlasciwym pokokju")
       break
     default: 
       console.log("Nieznany przedmiot")
