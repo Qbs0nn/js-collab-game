@@ -23,14 +23,17 @@ function start() {
 }
 
 function zakonczTure() {
-  energia = energia - 1;
-  console.log("Pozostala energia: " + energia);
   if (wygrana) {
     console.log("WYGRANA! Drzwi otwarte. Mozesz wrocic do domu.");
   } else if (energia === 0) {
     koniec = true;
     console.log("PRZEGRANA. Zasilanie awaryjne padlo. Wpisz start().");
   }
+  else if (energia > 0) {
+    energia = energia - 1;
+    console.log("Pozostala energia: " + energia);
+  }
+
 }
 
 // SEKCJA A — INFORMACJE I MAPA
@@ -76,8 +79,10 @@ function rozejrzyj() {
     case 4:
       if(!karta)
         console.log("Do wyjscia potrzebne jest jeszcze zebranie karty")
-      if(!zasilanie)
+      else if(!zasilanie)
         console.log("DO wyjscia potrzebne jest jeszcze przywrocenie zasilania")
+      else
+        console.log("Spelniasz wymagania aby opuscic szkole")
       break
     default:
       console.log("Nieznane pomieszczenie")
@@ -172,10 +177,9 @@ function akcja(co) {
       break
     case "wyjscie":
       if(zasilanie && karta && pokoj == 4) {
-        console.log("gg, gj")
-        zakonczTure()
         wygrana = true
         koniec = true
+        zakonczTure()
       }
       else if(pokoj != 4)
         console.log("Akcja wykonana w niewlasciwym pokokju")
