@@ -1,6 +1,5 @@
-// WSPOLNY KONTRAKT: nazwy zmiennych i funkcji uzgadnia caly zespol.
 const MAKS_ENERGIA = 10;
-let gra {
+let gra = {
     pokoj: 1,
     energia: MAKS_ENERGIA,
     karta: false,
@@ -68,7 +67,7 @@ function mapa() {
   }
 }
 function rozejrzyj() {
-  switch(pokoj) {
+  switch(gra.pokoj) {
     case 1:
       console.log(`${!gra.karta ? "Karta lezy na biurku" : "Wszystko w tym pokoju zostało zebrane"}`)
       break
