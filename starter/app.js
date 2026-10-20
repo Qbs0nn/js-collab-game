@@ -1,5 +1,4 @@
 let gra
-// SEKCJA 0 — GOTOWY SILNIK NAUCZYCIELA
 function start() {
   gra = stan
   console.log("UCIECZKA Z SERWEROWNI. Zasilanie awaryjne wystarczy na 10 tur.");
@@ -25,15 +24,15 @@ function zakonczTure() {
 function nazwaPokoju(numer) {
   switch(numer) {
     case 1:
-      return "Recepcja"
+      return pokoje[0];
     case 2:
-      return "Magazyn"
+      return pokoje[1];
     case 3:
-      return "Serwerownia"
+      return pokoje[2];
     case 4:
-      return "Wyjście"
+      return pokoje[3];
     default:
-      return "Nieznane pomieszczenie" 
+      return pokoje[4]; 
   }
 }
 function pomoc() {
