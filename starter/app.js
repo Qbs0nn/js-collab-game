@@ -8,12 +8,16 @@ function start() {
 }
 
 function zakonczTure() {
+  if(gra.lostFight) {
+    gra.koniec = true
+    console.log("Zrestartuj gre przy użyciu start() aby spróbować jeszcze raz...")
+  }
   if (gra.wygrana) {
     console.log("WYGRANA! Drzwi otwarte. Mozesz wrocic do domu.");
   } else if (gra.energia === 0) {
     gra.koniec = true;
-    console.log("PRZEGRANA. Zły Pan Cię dopadł. Wpisz start().");
-  } else if (gra.energia > 0) {
+    console.log("PRZEGRANA. Nie uciekłeś na czas z wyspy. Wpisz start().");
+  } else if (gra.energia > 0 && !gra.lostFight) {
     gra.energia = gra.energia - 1;
     console.log("Pozostala energia: " + gra.energia);
   }
@@ -37,7 +41,8 @@ function nazwaPokoju(numer) {
 }
 
 function pomoc() {
-  console.log('Dostepne: start(), pomoc(), status(), mapa(), rozejrzyj(), idz("prawo"), idz("lewo"), akcja("karta"), akcja("kluczyki"), akcja("wyjscie")');
+  console.log('Dostepne: start(), pomoc(), status(), mapa(), rozejrzyj(), idz("prawo"), idz("lewo"), akcja("karta"), akcja("sekret"), akcja("kluczyki"), akcja("ucieczka")');
+  console.log("W tej wersji gry zle wykonany ruch rowniez zuzywa energie")
 }
 
 function status() {
@@ -95,27 +100,30 @@ function idz(kierunek) {
 
   switch (kierunek) {
     case "prawo": {
-      if (nastepnyPokoj < 4) {
-        if (nastepnyPokoj === 3 && !gra.karta) {
-          console.log("Potrzebujesz karty, aby wejść do pokoju 4.");
-          return;
-        }
+      if(gra.pokoj % 2 == 0 && gra.pokoj < 4) 
+        nastepnyPokoj += 1
+      else if(gra.pokoj % 2 == 1)
+        nastepnyPokoj -= 1
 
-        nastepnyPokoj = nastepnyPokoj + 1;
-        zakonczTure();
-      } else {
-        console.log("Napotkales sciane.");
+      if(nastepnyPokoj == 0) {
+        console.log("Napotkales sciane!")
+        nastepnyPokoj = 1
       }
+      zakonczTure()
       break;
     }
 
     case "lewo": {
-      if (nastepnyPokoj > 1) {
-        nastepnyPokoj = nastepnyPokoj - 1;
-        zakonczTure();
-      } else {
-        console.log("Napotkales sciane");
+      if(gra.pokoj % 2 == 1 && gra.pokoj <= 4) 
+        nastepnyPokoj += 1
+      else if(gra.pokoj % 2 == 0)
+        nastepnyPokoj -= 1
+      
+      if(nastepnyPokoj == 0) {
+        console.log("Napotkales sciane!")
+        nastepnyPokoj = 1
       }
+      zakonczTure()
       break;
     }
 
@@ -140,7 +148,7 @@ function akcja(co) {
   switch (co) {
     case "karta":
       if (!gra.karta && gra.pokoj == 2) {
-        console.log("Podniesiono karte!");
+        console.log("Podniesiono karte! Czujesz ze cos tutaj jeszcze moze byc...");
         zakonczTure();
         if (!gra.koniec) gra.karta = true;
       } else if (gra.karta && gra.pokoj == 2) {
@@ -162,16 +170,53 @@ function akcja(co) {
       }
       break;
 
-    case "wyjscie":
+    case "ucieczka":
       if (gra.kluczyki && gra.pokoj == 4) {
-        gra.wygrana = true;
-        gra.koniec = true;
-        zakonczTure();
+        console.log("Cos jest nie tak...")
+        setTimeout(() => {
+          console.log("Epsztojka pojawia się przed tobą, zasłania ci drogę do motorówki... musicie walczyć")
+
+          setTimeout(() => {
+            if(gra.bron)
+            console.log("Posiadałeś broń! Epe na jej widok uciekł, a dla ciebie droga jest wolna!")
+            else {
+              setTimeout(() => {
+                console.log("Twoje szanse na sukces wynoszą 25%...")
+                let num = Math.floor(Math.random() * (100 - 1) + 1)
+                setTimeout(() => {
+                  if(num >= 75) {
+                    console.log("Udało sie! Szybko, masz czas aby uciec!!!")
+                    gra.wygrana = true
+                    gra.koniec = true
+                  }
+                  else {
+                    console.log("...Przegrałeś pojedynek... Trafiasz spowrotem do celi.")
+                    gra.lostFight = true
+                  }
+                }, 1000);
+              }, 1000);
+            }
+            setTimeout(() => {
+              zakonczTure();
+            }, 2000);
+          }, 1000);
+        }, 1500);
       } else if (gra.pokoj != 4) {
         console.log("Akcja wykonana w niewlasciwym pokokju");
       } else {
         console.log("Do ucieczki potrzebujesz kluczyków");
       }
+      break;
+    
+    case "sekret":
+      let num = Math.floor(Math.random() * (100 - 1) + 1)
+      if(num > 80) {
+        console.log("Znalazles sekretna bron na epsztojke!")
+        gra.bron = true
+      }
+      else
+        console.log("Nic nie znalazles... ale możesz szukać dalej!")
+      zakonczTure()
       break;
 
     default:

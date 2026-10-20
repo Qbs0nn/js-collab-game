@@ -5,6 +5,8 @@ const stan = {
     energia: MAKS_ENERGIA,
     karta: false,
     kluczyki: false,
+    bron: false,
+    lostFight: false,
     koniec: false,
     wygrana: false
 };  
