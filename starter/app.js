@@ -189,5 +189,7 @@ function akcja(co) {
       break
   }
 }
-
+function import(){ 
+  
+}
 start();
