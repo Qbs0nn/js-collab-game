@@ -1,5 +1,5 @@
 const MAKS_ENERGIA = 10;
-let gra = {
+const stan = {
     pokoj: 1,
     energia: MAKS_ENERGIA,
     karta: false,
@@ -9,15 +9,10 @@ let gra = {
     wygrana: false
 };
 
+let gra
 // SEKCJA 0 — GOTOWY SILNIK NAUCZYCIELA
 function start() {
-  gra.pokoj = 1;
-  gra.energia = MAKS_ENERGIA;
-  gra.karta = false;
-  gra.bezpiecznik = false;
-  gra.zasilanie = false;
-  gra.koniec = false;
-  gra.wygrana = false;
+  gra = stan
   console.log("UCIECZKA Z SERWEROWNI. Zasilanie awaryjne wystarczy na 10 tur.");
   pomoc();
   rozejrzyj();
