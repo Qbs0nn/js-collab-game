@@ -1,189 +1,198 @@
-  let gra
-  function start() {
-    gra = stan
-    console.log("UCIECZKA Z WYSPY. Epsztojek wraca za 10 tur.");
-    pomoc();
-    rozejrzyj();
+let gra
+function start() {
+  gra = stan
+  console.log("UCIECZKA Z WYSPY. Epsztojek wraca za 10 tur.");
+  pomoc();
+  rozejrzyj();
+}
+
+function zakonczTure() {
+  if (gra.wygrana) {
+    console.log("WYGRANA! Drzwi otwarte. Mozesz wrocic do domu.");
+  } else if (gra.energia === 0) {
+    gra.koniec = true;
+    console.log("PRZEGRANA. Zły Pan Cię dopadł. Wpisz start().");
+  }
+  else if (gra.energia > 0) {
+    gra.energia = gra.energia - 1;
+    console.log("Pozostala energia: " + gra.energia);
   }
 
-  function zakonczTure() {
-    if (gra.wygrana) {
-      console.log("WYGRANA! Drzwi otwarte. Mozesz wrocic do domu.");
-    } else if (gra.energia === 0) {
-      gra.koniec = true;
-      console.log("PRZEGRANA. Zły Pan Cię dopadł. Wpisz start().");
-    }
-    else if (gra.energia > 0) {
-      gra.energia = gra.energia - 1;
-      console.log("Pozostala energia: " + gra.energia);
-    }
+}
 
+// SEKCJA A — INFORMACJE I MAPA
+function nazwaPokoju(numer) {
+  switch (numer) {
+    case 1:
+      return pokoje[0];
+    case 2:
+      return pokoje[1];
+    case 3:
+      return pokoje[2];
+    case 4:
+      return pokoje[3];
+    default:
+      return pokoje[4];
   }
+}
+function pomoc() {
+  console.log('Dostepne: start(), pomoc(), status(), mapa(), rozejrzyj(), idz("prawo"), idz("lewo"), akcja("karta"), akcja("bezpiecznik"), akcja("napraw"), akcja("wyjscie")');
+  // TODO A5: dopisz pozostale kierunki i akcje oraz zasade kosztu.
+}
+function status() {
+  console.log(`Aktualny status: Pokój: ${nazwaPokoju(gra.pokoj)}; pozostała energia: ${gra.energia}; posiadane przedmioty: ${gra.karta ? 'karta' : ''}
+    ${gra.bezpiecznik ? 'bezpiecznik' : ''}; Stan zasilania: ${gra.zasilanie ? 'Zasilanie włączone!' : 'Zasilanie wyłączone'};
+    Stan gry: ${gra.koniec ? 'Gra zakonczona' : 'Gra w trakcie'}`);
+}
+function mapa() {
+  for (let i = 1; i <= 4; i++) {
+    console.log(`${nazwaPokoju(i)} ${i == gra.pokoj ? "-> Aktualny pokoj" : ""}`)
+  }
+}
+function rozejrzyj() {
+  switch (gra.pokoj) {
+    case 1:
+      console.log(`${!gra.karta ? "Karta lezy na biurku" : "Wszystko w tym pokoju zostało zebrane"}`)
+      break
+    case 2:
+      console.log(`${!gra.bezpiecznik && !gra.zasilanie ? "Bezpiecznik leży na półce" : "Wszystko w tym pokoju zostało zabrane"}`)
+      break
+    case 3:
+      console.log(`${!gra.zasilanie ? "Zasilanie nie zostało przywrócone" : "Zasilanie zostało przywrócone"}`)
+      break
+    case 4:
+      if (!gra.karta)
+        console.log("Do wyjscia potrzebne jest jeszcze zebranie karty")
+      else if (!gra.zasilanie)
+        console.log("DO wyjscia potrzebne jest jeszcze przywrocenie zasilania")
+      else
+        console.log("Spelniasz wymagania aby opuscic szkole")
+      break
+    default:
+      console.log("Nieznane pomieszczenie")
+  }
+}
 
-  // SEKCJA A — INFORMACJE I MAPA
-  function nazwaPokoju(numer) {
-    switch(numer) {
-      case 1:
-        return pokoje[0];
-      case 2:
-        return pokoje[1];
-      case 3:
-        return pokoje[2];
-      case 4:
-        return pokoje[3];
-      default:
-        return pokoje[4]; 
-    }
+// SEKCJA B — RUCH
+function idz(kierunek) {
+  let nastepnyPokoj = gra.pokoj;
+  if (gra.energia == 0) { gra.koniec = true };
+  if (gra.koniec) {
+    console.log("Nie możesz wykonać ruchu po końcu gry.");
+    return;
   }
-  function pomoc() {
-    console.log('Dostepne: start(), pomoc(), status(), mapa(), rozejrzyj(), idz("prawo"), idz("lewo"), akcja("karta"), akcja("bezpiecznik"), akcja("napraw"), akcja("wyjscie")');
-    // TODO A5: dopisz pozostale kierunki i akcje oraz zasade kosztu.
-  }
-  function status() {
-    console.log(`Aktualny status: Pokój: ${nazwaPokoju(gra.pokoj)}; pozostała energia: ${gra.energia}; posiadane przedmioty: ${ gra.karta ? 'karta' : '' }
-    ${ gra.bezpiecznik ? 'bezpiecznik' : '' }; Stan zasilania: ${gra.zasilanie ? 'Zasilanie włączone!' : 'Zasilanie wyłączone'};
-    Stan gry: ${ gra.koniec ? 'Gra zakonczona' : 'Gra w trakcie' }`);
-  }   
-  function mapa() {
-    for(let i = 1; i <= 4; i++) {
-      console.log(`${nazwaPokoju(i)} ${i == gra.pokoj ? "-> Aktualny pokoj" : ""}`)
-    }
-  }
-  function rozejrzyj() {
-    switch(gra.pokoj) {
-      case 1:
-        console.log(`${!gra.karta ? "Karta lezy na biurku" : "Wszystko w tym pokoju zostało zebrane"}`)
-        break
-      case 2:
-        console.log(`${!gra.bezpiecznik && !gra.zasilanie ? "Bezpiecznik leży na półce" : "Wszystko w tym pokoju zostało zabrane"}`)
-        break
-      case 3:
-        console.log(`${!gra.zasilanie ? "Zasilanie nie zostało przywrócone" : "Zasilanie zostało przywrócone"}`)
-        break
-      case 4:
-        if(!gra.karta)
-          console.log("Do wyjscia potrzebne jest jeszcze zebranie karty")
-        else if(!gra.zasilanie)
-          console.log("DO wyjscia potrzebne jest jeszcze przywrocenie zasilania")
-        else
-          console.log("Spelniasz wymagania aby opuscic szkole")
-        break
-      default:
-        console.log("Nieznane pomieszczenie")
-    }
-  }
+  switch (kierunek) {
+    case "prawo": {
 
-  // SEKCJA B — RUCH
-  function idz(kierunek) {
-    let nastepnyPokoj = gra.pokoj; 
-    if(gra.energia == 0 ) {gra.koniec = true};
-    if(gra.koniec){
-      console.log("Nie możesz wykonać ruchu po końcu gry.");
-      return;
-    }
-    switch(kierunek) {
-      case "prawo": {
-        
-        if(nastepnyPokoj < 4) {
+      if (nastepnyPokoj < 4) {
         nastepnyPokoj = nastepnyPokoj + 1;
-          zakonczTure();
+        zakonczTure();
       } else {
         console.log("Napotkales sciane.");
       }
-        break;
-      }
-      case "lewo": {  
-        if(nastepnyPokoj > 1){
-          nastepnyPokoj = nastepnyPokoj - 1;
-          zakonczTure();
-        }
-        else {
-          console.log("Napotkales sciane");
-        }
-        break;
-      }
-      default:{
-        console.log("Nieznany kierunek! Sprobuj jeszcze raz.");
-        return;
-      }
+      break;
     }
-    
-    gra.pokoj = nastepnyPokoj;
-    rozejrzyj();
-
-  }
-
-  // SEKCJA C — PRZEDMIOTY I WYGRANA
-  function akcja(co) {
-    if(gra.koniec) {
-      console.log("Gra została zakończona, brak możliwości wykonania akcji")
-      return
+    case "lewo": {
+      if (nastepnyPokoj > 1) {
+        nastepnyPokoj = nastepnyPokoj - 1;
+        zakonczTure();
+      }
+      else {
+        console.log("Napotkales sciane");
+      }
+      break;
     }
-    switch(co) {
-      case "karta":
-        if(!gra.karta && gra.pokoj == 1) {
-          console.log("Podniesiono karte!")
-          zakonczTure()
-          gra.karta = true
-        }
-        else if(gra.karta && gra.pokoj == 1)
-          console.log("Podniesiono juz karte")
-        else if(gra.pokoj != 1)
-          console.log("Akcja wykonana w niewlasciwym pokokju")
-        break
-      case "bezpiecznik":
-        if(!gra.bezpiecznik && !gra.zasilanie && gra.pokoj == 2) {
-          console.log("Podniesiono bezpiecznik!")
-          zakonczTure()
-          gra.bezpiecznik = true
-        }
-        else if(gra.bezpiecznik && gra.pokoj == 2)
-          console.log("Podniesiono juz bezpiecznik")
-        else if(!gra.bezpiecznik && gra.zasilanie)
-          console.log("Zabrano juz bezpiecznik i przywrocono zasilanie")
-        else if(gra.pokoj != 2)
-          console.log("Akcja wykonana w niewlasciwym pokokju")
-        break
-      case "napraw":
-        if(gra.bezpiecznik && !gra.zasilanie && gra.pokoj == 3) {
-          console.log("Właczono zasilanie!")
-          zakonczTure()
-          gra.zasilanie = true
-          gra.bezpiecznik = false
-        }
-        else if(!gra.bezpiecznik && !gra.zasilanie && gra.pokoj == 3)
-          console.log("Nie mozesz teraz przywrocic zasilania. Wymagany jest bezpiecznik")
-        else if(!gra.bezpiecznik && gra.zasilanie && gra.pokoj == 3)
-          console.log("Wlaczono juz zasilanie")
-        else if(gra.pokoj != 3)
-          console.log("Akcja wykonana w niewlasciwym pokokju")
-        break
-      case "wyjscie":
-        if(gra.zasilanie && gra.karta && gra.pokoj == 4) {
-          gra.wygrana = true
-          gra.koniec = true
-          zakonczTure()
-        }
-        else if(gra.pokoj != 4)
-          console.log("Akcja wykonana w niewlasciwym pokokju")
-        break
-      default: 
-        console.log("Nieznany przedmiot")
-        break
+    default: {
+      console.log("Nieznany kierunek! Sprobuj jeszcze raz.");
+      return;
     }
   }
 
-  function eksport() {
-    const jsonString = JSON.stringify(gra, null, 2)
-    return jsonString
+  gra.pokoj = nastepnyPokoj;
+  rozejrzyj();
+
+}
+
+// SEKCJA C — PRZEDMIOTY I WYGRANA
+function akcja(co) {
+  if (gra.koniec) {
+    console.log("Gra została zakończona, brak możliwości wykonania akcji")
+    return
   }
+  switch (co) {
+    case "karta":
+      if (!gra.karta && gra.pokoj == 1) {
+        console.log("Podniesiono karte!")
+        zakonczTure()
+        gra.karta = true
+      }
+      else if (gra.karta && gra.pokoj == 1)
+        console.log("Podniesiono juz karte")
+      else if (gra.pokoj != 1)
+        console.log("Akcja wykonana w niewlasciwym pokokju")
+      break
+    case "bezpiecznik":
+      if (!gra.bezpiecznik && !gra.zasilanie && gra.pokoj == 2) {
+        console.log("Podniesiono bezpiecznik!")
+        zakonczTure()
+        gra.bezpiecznik = true
+      }
+      else if (gra.bezpiecznik && gra.pokoj == 2)
+        console.log("Podniesiono juz bezpiecznik")
+      else if (!gra.bezpiecznik && gra.zasilanie)
+        console.log("Zabrano juz bezpiecznik i przywrocono zasilanie")
+      else if (gra.pokoj != 2)
+        console.log("Akcja wykonana w niewlasciwym pokokju")
+      break
+    case "napraw":
+      if (gra.bezpiecznik && !gra.zasilanie && gra.pokoj == 3) {
+        console.log("Właczono zasilanie!")
+        zakonczTure()
+        gra.zasilanie = true
+        gra.bezpiecznik = false
+      }
+      else if (!gra.bezpiecznik && !gra.zasilanie && gra.pokoj == 3)
+        console.log("Nie mozesz teraz przywrocic zasilania. Wymagany jest bezpiecznik")
+      else if (!gra.bezpiecznik && gra.zasilanie && gra.pokoj == 3)
+        console.log("Wlaczono juz zasilanie")
+      else if (gra.pokoj != 3)
+        console.log("Akcja wykonana w niewlasciwym pokokju")
+      break
+    case "wyjscie":
+      if (gra.zasilanie && gra.karta && gra.pokoj == 4) {
+        gra.wygrana = true
+        gra.koniec = true
+        zakonczTure()
+      }
+      else if (gra.pokoj != 4)
+        console.log("Akcja wykonana w niewlasciwym pokokju")
+      break
+    default:
+      console.log("Nieznany przedmiot")
+      break
+  }
+}
+
 
 function exportJSON() {
-  const jsonString = JSON.stringify(gra, null, 2)
+  const jsonString = JSON.stringify(gra)
   return jsonString
 }
 function importJSON(text) {
-  const data = JSON.parse(text);
+  let data;
+  try {
+    data = JSON.parse(text);
+    if (data === null || typeof data !== "object") { return false }
+  } catch (e) {
+    throw new Error("Zle dane importu.")
+  }
+    if(!Number.isInteger(gra.pokoj) || gra.pokoj < 1 || gra.pokoj > 4) {return false}
+    if(!Number.isInteger(gra.energia) || gra.energia < 0 || gra.energia > 10 ) {return false}
+    if(typeof gra.karta !== "boolean") {return false}
+    if(typeof gra.kluczyki !== "boolean") {return false}
+    if(typeof gra.koniec !== "boolean") {return false}
+    if(typeof gra.wygrana !== "boolean") {return false}
+
   gra.pokoj = data.pokoj;
   gra.energia = data.energia;
   gra.karta = data.karta;
