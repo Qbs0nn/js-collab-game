@@ -190,4 +190,9 @@ function akcja(co) {
   }
 }
 
+function eksport() {
+  const jsonString = JSON.stringify(gra, null, 2)
+  console.log(jsonString)
+}
+
 start();
