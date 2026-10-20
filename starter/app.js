@@ -8,6 +8,7 @@ let gra = {
     koniec: false,
     wygrana: false
 };
+const pokoje = ["Recepcja", "Magazyn","Serwerownia","Wyjście","Nieznane pomieszczenie"];
 
 // SEKCJA 0 — GOTOWY SILNIK NAUCZYCIELA
 function start() {
@@ -41,15 +42,15 @@ function zakonczTure() {
 function nazwaPokoju(numer) {
   switch(numer) {
     case 1:
-      return "Recepcja"
+      return pokoje[0];
     case 2:
-      return "Magazyn"
+      return pokoje[1];
     case 3:
-      return "Serwerownia"
+      return pokoje[2];
     case 4:
-      return "Wyjście"
+      return pokoje[3];
     default:
-      return "Nieznane pomieszczenie" 
+      return pokoje[4]; 
   }
 }
 function pomoc() {
