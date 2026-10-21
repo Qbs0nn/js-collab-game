@@ -240,14 +240,14 @@ function importJSON(text) {
   } catch (e) {
     throw new Error("Zle dane importu.")
   }
-    if(!Number.isInteger(gra.pokoj) || gra.pokoj < 1 || gra.pokoj > 5) {return false}
-    if(!Number.isInteger(gra.energia) || gra.energia < 0 || gra.energia > 13 ) {return false}
-    if(typeof gra.karta !== "boolean") {return false}
-    if(typeof gra.kluczyki !== "boolean") {return false}
-    if(typeof gra.bron !== "boolean") {return false}
-    if(typeof gra.lostFight !== "boolean") {return false}
-    if(typeof gra.koniec !== "boolean") {return false}
-    if(typeof gra.wygrana !== "boolean") {return false}
+    if(!Number.isInteger(data.pokoj) || data.pokoj < 1 || data.pokoj > 5) {return false}
+    if(!Number.isInteger(data.energia) || data.energia < 0 || data.energia > 13 ) {return false}
+    if(typeof data.karta !== "boolean") {return false}
+    if(typeof data.kluczyki !== "boolean") {return false}
+    if(typeof data.bron !== "boolean") {return false}
+    if(typeof data.lostFight !== "boolean") {return false}
+    if(typeof data.koniec !== "boolean") {return false}
+    if(typeof data.wygrana !== "boolean") {return false}
 
   gra.pokoj = data.pokoj;
   gra.energia = data.energia;
@@ -257,6 +257,6 @@ function importJSON(text) {
   gra.lostFight = data.lostFight;
   gra.koniec = data.koniec;
   gra.wygrana = data.wygrana;
-  return
+  return true
 }
 start();
