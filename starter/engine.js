@@ -7,6 +7,7 @@ const stan = {
     kluczyki: false,
     bron: false,
     lostFight: false,
+    didFightOccur: false,
     koniec: false,
     wygrana: false
 };  
