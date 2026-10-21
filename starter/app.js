@@ -247,7 +247,7 @@ function importJSON(text) {
     if(typeof data.bron !== "boolean") {return false}
     if(typeof data.lostFight !== "boolean") {return false}
     if(typeof data.koniec !== "boolean") {return false}
-    if(typeof data.wygrana !== "boolean") {return false}
+    if(typeof data.wygrana !== "boolean") {return false}  
 
   gra.pokoj = data.pokoj;
   gra.energia = data.energia;
