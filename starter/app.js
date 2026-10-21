@@ -1,15 +1,8 @@
-<<<<<<< HEAD
-let gra
-function start() {
-  gra = stan
-  console.log("UCIECZKA Z WYSPY. Epsztojek wraca za 10 tur.");
-=======
 let gra;
 
 function start() {
   gra = stan;
   console.log("UCIECZKA Z WYSPY. Epsztojek wraca za 13 tur.");
->>>>>>> e93a344b4ff63375f6b4daff7e59688d5e7bafb8
   pomoc();
   rozejrzyj();
 }
@@ -179,8 +172,8 @@ function rozejrzyj() {
     default:
       console.log("Nieznane pomieszczenie")
   }
-}
 
+function idz(kierunek) {
   switch (kierunek) {
     case "prawo": {
       if(gra.pokoj % 2 == 0 && gra.pokoj < 5) 
@@ -219,7 +212,7 @@ function rozejrzyj() {
   gra.pokoj = nastepnyPokoj;
   rozejrzyj();
 }
-
+}
 // SEKCJA C — PRZEDMIOTY I WYGRANA
 
 function akcja(co) {
