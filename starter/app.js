@@ -80,7 +80,35 @@ function rozejrzyj() {
       console.log(`${!gra.kluczyki ? "Kluczyki leżą na półce" : "Kluczyki zostały już zabrane"}`);
       break;
     case 4:
+        console.log("Cos jest nie tak...")
+        setTimeout(() => {
+          console.log("Epsztojka pojawia się przed tobą, zasłania ci drogę do motorówki... musicie walczyć")
 
+          setTimeout(() => {
+            if(gra.bron)
+            console.log("Posiadałeś broń! Epe na jej widok uciekł, a dla ciebie droga jest wolna!")
+            else {
+              setTimeout(() => {
+                console.log("Twoje szanse na sukces wynoszą 25%...")
+                let num = Math.floor(Math.random() * (100 - 1) + 1)
+                setTimeout(() => {
+                  if(num >= 75) {
+                    console.log("Udało sie! Szybko, masz czas aby uciec!!!")
+                    gra.wygrana = true
+                    gra.koniec = true
+                  }
+                  else {
+                    console.log("...Przegrałeś pojedynek... Trafiasz spowrotem do celi.")
+                    gra.lostFight = true
+                  }
+                }, 1000);
+              }, 1000);
+            }
+            setTimeout(() => {
+              zakonczTure();
+            }, 2000);
+          }, 1000);
+       }, 1500);
     case 5:
       if (!gra.karta)
         console.log("Do wejścia na plażę potrzebujesz karty");
