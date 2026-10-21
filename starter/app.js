@@ -290,6 +290,8 @@ function importJSON(text) {
     if(!Number.isInteger(gra.energia) || gra.energia < 0 || gra.energia > 13 ) {return false}
     if(typeof gra.karta !== "boolean") {return false}
     if(typeof gra.kluczyki !== "boolean") {return false}
+    if(typeof gra.bron !== "boolean") {return false}
+    if(typeof gra.lostFight !== "boolean") {return false}
     if(typeof gra.koniec !== "boolean") {return false}
     if(typeof gra.wygrana !== "boolean") {return false}
 
@@ -297,6 +299,8 @@ function importJSON(text) {
   gra.energia = data.energia;
   gra.karta = data.karta;
   gra.kluczyki = data.kluczyki;
+  gra.bron = data.bron;
+  gra.lostFight = data.lostFight;
   gra.koniec = data.koniec;
   gra.wygrana = data.wygrana;
   return
