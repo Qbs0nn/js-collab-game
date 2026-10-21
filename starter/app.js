@@ -1,7 +1,7 @@
 let gra;
 
 function start() {
-  gra = stan;
+  gra = { ...stan };
   console.log("UCIECZKA Z WYSPY. Epsztojek wraca za 13 tur.");
   pomoc();
 }
@@ -10,15 +10,19 @@ function zakonczTure() {
   if(gra.lostFight) {
     gra.koniec = true
     console.log("Zrestartuj gre przy użyciu start() aby spróbować jeszcze raz...")
+    return
   }
   if (gra.wygrana) {
     console.log("WYGRANA! Odpłynąłeś motorówką z wyspy Jot.E. Mozesz wrocic do domu.");
+    return
   } else if (gra.energia === 0) {
     gra.koniec = true;
     console.log("PRZEGRANA. Nie uciekłeś na czas z wyspy. Wpisz start().");
+    return
   } else if (gra.energia > 0 && !gra.lostFight) {
     gra.energia = gra.energia - 1;
     console.log("Pozostala energia: " + gra.energia);
+    return
   }
 }
 
@@ -65,6 +69,7 @@ function mapa() {
   for (let i = 1; i <= 5; i++) {
     console.log(`${nazwaPokoju(i)} ${i == gra.pokoj ? "-> Aktualny pokoj" : ""}`);
   }
+  console.log("Naprzemiennie poruszaj sie lewo i prawo zaleznie od parzystosci pokoju. Ruch w zla strone cofa cie o jeden pokoj")
 }
 
 function rozejrzyj() {
@@ -79,40 +84,49 @@ function rozejrzyj() {
       console.log(`${!gra.kluczyki ? "Kluczyki leżą na półce" : "Kluczyki zostały już zabrane"}`);
       break;
     case 4:
-        console.log("Cos jest nie tak...")
-        setTimeout(() => {
-          console.log("Epsztojka pojawia się przed tobą, zasłania ci drogę do motorówki... musicie walczyć")
-
-          setTimeout(() => {
-            if(gra.bron)
-            console.log("Posiadałeś broń! Epe na jej widok uciekł, a dla ciebie droga jest wolna!")
-            else {
-              setTimeout(() => {
-                console.log("Twoje szanse na sukces wynoszą 25%...")
-                let num = Math.floor(Math.random() * (100 - 1) + 1)
-                setTimeout(() => {
-                  if(num >= 75) {
-                    console.log("Udało sie! Szybko, masz czas aby uciec!!!")
-                    zakonczTure()
-                  }
-                  else {
-                    console.log("...Przegrałeś pojedynek... Trafiasz spowrotem do celi.")
-                    gra.lostFight = true
-                    zakonczTure()
-                  }
-                }, 1000);
-              }, 1000);
-            }
+      if(!gra.karta) {
+        console.log("Potrzebna jest ci karta, aby dostać się do poziomu: Ściany budynku")
+        gra.pokoj -= 1
+      }
+      else {
+        if(!gra.didFightOccur) {
+            console.log("Cos jest nie tak...")
             setTimeout(() => {
-              zakonczTure();
-            }, 2000);
-          }, 1000);
-       }, 1500);
+              console.log("Epsztojka pojawia się przed tobą, zasłania ci drogę do motorówki... musicie walczyć")
+
+              setTimeout(() => {
+                if(gra.bron)
+                console.log("Posiadałeś broń! Epe na jej widok uciekł, a dla ciebie droga jest wolna!")
+                else {
+                  setTimeout(() => {
+                    console.log("Twoje szanse na sukces wynoszą 25%...")
+                    let num = Math.floor(Math.random() * (100 - 1) + 1)
+                    setTimeout(() => {
+                      if(num >= 75) {
+                        console.log("Udało sie! Szybko, masz czas aby uciec!!!")
+                        zakonczTure()
+                      }
+                      else {
+                        console.log("...Przegrałeś pojedynek... Trafiasz spowrotem do celi.")
+                        gra.lostFight = true
+                        zakonczTure()
+                      }
+                    }, 1000);
+                  }, 1000);
+                }
+                setTimeout(() => {
+                  zakonczTure();
+                }, 2000);
+              }, 1000);
+          }, 1500);
+        }
+        else
+          console.log("Jestes już blisko plaży, przypomnij sobie czy napewno posiadasz kartę aby się na nią dostać..." +
+          + "Przydadzą się rownież kluczyki do motorówki aby raz na zawsze stąd uciec.")
+      }
        break
     case 5:
-      if (!gra.karta)
-        console.log("Do wejścia na plażę potrzebujesz karty");
-      else if (!gra.kluczyki)
+      if (!gra.kluczyki)
         console.log("Aby uciec, potrzebujesz kluczyków");
       else
         console.log("Możesz uciec z wyspy, użyj akcja('ucieczka')!");
@@ -147,6 +161,10 @@ function idz(kierunek) {
       if(nastepnyPokoj == 0) {
         console.log("Napotkales sciane!")
         nastepnyPokoj = 1
+      }
+      if(nastepnyPokoj == 6) {
+        console.log("Idziesz w złym kierunku...")
+        nastepnyPokoj = 5
       }
       zakonczTure()
       break;
@@ -246,6 +264,7 @@ function importJSON(text) {
     if(typeof data.kluczyki !== "boolean") {return false}
     if(typeof data.bron !== "boolean") {return false}
     if(typeof data.lostFight !== "boolean") {return false}
+    if(typeof data.didFightOccur !== "boolean") {return false}
     if(typeof data.koniec !== "boolean") {return false}
     if(typeof data.wygrana !== "boolean") {return false}  
 
@@ -255,6 +274,7 @@ function importJSON(text) {
   gra.kluczyki = data.kluczyki;
   gra.bron = data.bron;
   gra.lostFight = data.lostFight;
+  gra.didFightOccur = data.didFightOccur;
   gra.koniec = data.koniec;
   gra.wygrana = data.wygrana;
   return true
