@@ -2,7 +2,7 @@ let gra;
 
 function start() {
   gra = stan;
-  console.log("UCIECZKA Z WYSPY. Epsztojek wraca za 10 tur.");
+  console.log("UCIECZKA Z WYSPY. Epsztojek wraca za 13 tur.");
   pomoc();
   rozejrzyj();
 }
@@ -43,6 +43,13 @@ function nazwaPokoju(numer) {
 function pomoc() {
   console.log('Dostepne: start(), pomoc(), status(), mapa(), rozejrzyj(), idz("prawo"), idz("lewo"), akcja("karta"), akcja("sekret"), akcja("kluczyki"), akcja("ucieczka")');
   console.log("W tej wersji gry zle wykonany ruch rowniez zuzywa energie")
+  console.log("[] -> pozostała energia, {} -> zużyta energia")
+}
+
+function stanEnergii() {
+  let en = '[]'.repeat(gra.energia)
+  let depleted = '{}'.repeat(13 - gra.energia)
+  console.log(`Pozostała energia: ${en}${depleted}`)
 }
 
 function status() {
@@ -51,11 +58,12 @@ function status() {
       pozostała energia: ${gra.energia}
       posiadane przedmioty: ${gra.karta ? 'karta' : ''} ${gra.bezpiecznik ? 'bezpiecznik' : ''}
       Stan zasilania: ${gra.zasilanie ? 'Zasilanie włączone!' : 'Zasilanie wyłączone'};
-      Stan gry: ${gra.koniec ? 'Gra zakonczona' : 'Gra w trakcie'}`);
+      Stan gry: ${gra.koniec ? 'Gra zakonczona' : 'Gra w trakcie'}
+      ${gra.bron ? 'Posiadasz bron' : ''}`);
 }
 
 function mapa() {
-  for (let i = 1; i <= 4; i++) {
+  for (let i = 1; i <= 5; i++) {
     console.log(`${nazwaPokoju(i)} ${i == gra.pokoj ? "-> Aktualny pokoj" : ""}`);
   }
 }
@@ -72,12 +80,14 @@ function rozejrzyj() {
       console.log(`${!gra.kluczyki ? "Kluczyki leżą na półce" : "Kluczyki zostały już zabrane"}`);
       break;
     case 4:
+
+    case 5:
       if (!gra.karta)
         console.log("Do wejścia na plażę potrzebujesz karty");
       else if (!gra.kluczyki)
         console.log("Aby uciec, potrzebujesz kluczyków");
       else
-        console.log("Możesz uciec z wyspy!");
+        console.log("Możesz uciec z wyspy, użyj akcja('ucieczka')!");
       break;
     default:
       console.log("Nieznane pomieszczenie");
@@ -100,7 +110,7 @@ function idz(kierunek) {
 
   switch (kierunek) {
     case "prawo": {
-      if(gra.pokoj % 2 == 0 && gra.pokoj < 4) 
+      if(gra.pokoj % 2 == 0 && gra.pokoj < 5) 
         nastepnyPokoj += 1
       else if(gra.pokoj % 2 == 1)
         nastepnyPokoj -= 1
@@ -114,7 +124,7 @@ function idz(kierunek) {
     }
 
     case "lewo": {
-      if(gra.pokoj % 2 == 1 && gra.pokoj <= 4) 
+      if(gra.pokoj % 2 == 1 && gra.pokoj <= 5) 
         nastepnyPokoj += 1
       else if(gra.pokoj % 2 == 0)
         nastepnyPokoj -= 1
@@ -171,37 +181,9 @@ function akcja(co) {
       break;
 
     case "ucieczka":
-      if (gra.kluczyki && gra.pokoj == 4) {
-        console.log("Cos jest nie tak...")
-        setTimeout(() => {
-          console.log("Epsztojka pojawia się przed tobą, zasłania ci drogę do motorówki... musicie walczyć")
-
-          setTimeout(() => {
-            if(gra.bron)
-            console.log("Posiadałeś broń! Epe na jej widok uciekł, a dla ciebie droga jest wolna!")
-            else {
-              setTimeout(() => {
-                console.log("Twoje szanse na sukces wynoszą 25%...")
-                let num = Math.floor(Math.random() * (100 - 1) + 1)
-                setTimeout(() => {
-                  if(num >= 75) {
-                    console.log("Udało sie! Szybko, masz czas aby uciec!!!")
-                    gra.wygrana = true
-                    gra.koniec = true
-                  }
-                  else {
-                    console.log("...Przegrałeś pojedynek... Trafiasz spowrotem do celi.")
-                    gra.lostFight = true
-                  }
-                }, 1000);
-              }, 1000);
-            }
-            setTimeout(() => {
-              zakonczTure();
-            }, 2000);
-          }, 1000);
-        }, 1500);
-      } else if (gra.pokoj != 4) {
+      if (gra.kluczyki && gra.pokoj == 5) {
+        gra.wygrana
+      } else if (gra.pokoj != 5) {
         console.log("Akcja wykonana w niewlasciwym pokokju");
       } else {
         console.log("Do ucieczki potrzebujesz kluczyków");

@@ -1,8 +1,8 @@
 Testy
 1. Napotkanie ściany
 
-Test: Napotkanie ściany nigdy nie posuwa gry, nie zmienia się energia.
-Oczekiwany wynik: Gracz nie przechodzi dalej i energia się nie zmniejsza.
+Test: Napotkanie ściany nigdy nie posuwa gry, ale zmienia się energia.
+Oczekiwany wynik: Gracz nie przechodzi dalej, a energia się zmniejsza.
 Otrzymany wynik: Zgodny z oczekiwanym.
 
 2. Zły ruch lub powtórzenie akcji
