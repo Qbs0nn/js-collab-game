@@ -4,7 +4,6 @@ function start() {
   gra = stan;
   console.log("UCIECZKA Z WYSPY. Epsztojek wraca za 13 tur.");
   pomoc();
-  rozejrzyj();
 }
 
 function zakonczTure() {
@@ -13,7 +12,7 @@ function zakonczTure() {
     console.log("Zrestartuj gre przy użyciu start() aby spróbować jeszcze raz...")
   }
   if (gra.wygrana) {
-    console.log("WYGRANA! Drzwi otwarte. Mozesz wrocic do domu.");
+    console.log("WYGRANA! Odpłynąłeś motorówką z wyspy Jot.E. Mozesz wrocic do domu.");
   } else if (gra.energia === 0) {
     gra.koniec = true;
     console.log("PRZEGRANA. Nie uciekłeś na czas z wyspy. Wpisz start().");
@@ -42,8 +41,8 @@ function nazwaPokoju(numer) {
 
 function pomoc() {
   console.log('Dostepne: start(), pomoc(), status(), mapa(), rozejrzyj(), idz("prawo"), idz("lewo"), akcja("karta"), akcja("sekret"), akcja("kluczyki"), akcja("ucieczka")');
-  console.log("W tej wersji gry zle wykonany ruch rowniez zuzywa energie")
-  console.log("[] -> pozostała energia, {} -> zużyta energia")
+  console.log(`W tej wersji gry zle wykonany ruch rowniez zuzywa energie`);
+  console.log(`[] -> pozostała energia, {} -> zużyta energia`);
 }
 
 function stanEnergii() {
@@ -94,12 +93,12 @@ function rozejrzyj() {
                 setTimeout(() => {
                   if(num >= 75) {
                     console.log("Udało sie! Szybko, masz czas aby uciec!!!")
-                    gra.wygrana = true
-                    gra.koniec = true
+                    zakonczTure()
                   }
                   else {
                     console.log("...Przegrałeś pojedynek... Trafiasz spowrotem do celi.")
                     gra.lostFight = true
+                    zakonczTure()
                   }
                 }, 1000);
               }, 1000);
@@ -109,6 +108,7 @@ function rozejrzyj() {
             }, 2000);
           }, 1000);
        }, 1500);
+       break
     case 5:
       if (!gra.karta)
         console.log("Do wejścia na plażę potrzebujesz karty");
@@ -121,59 +121,8 @@ function rozejrzyj() {
       console.log("Nieznane pomieszczenie");
   }
 }
-
-// SEKCJA B — RUCH
-
 function idz(kierunek) {
-  let nastepnyPokoj = gra.pokoj;
-
-  if (gra.energia == 0) {
-    gra.koniec = true;
-  }
-
-  if (gra.koniec) {
-    console.log("Nie możesz wykonać ruchu po końcu gry.");
-    return;
-  }
-}
-function pomoc() {
-  console.log('Dostepne: start(), pomoc(), status(), mapa(), rozejrzyj(), idz("prawo"), idz("lewo"), akcja("karta"), akcja("bezpiecznik"), akcja("napraw"), akcja("wyjscie")');
-  // TODO A5: dopisz pozostale kierunki i akcje oraz zasade kosztu.
-}
-function status() {
-  console.log(`Aktualny status: Pokój: ${nazwaPokoju(gra.pokoj)}; pozostała energia: ${gra.energia}; posiadane przedmioty: ${gra.karta ? 'karta' : ''}
-    ${gra.bezpiecznik ? 'bezpiecznik' : ''}; Stan zasilania: ${gra.zasilanie ? 'Zasilanie włączone!' : 'Zasilanie wyłączone'};
-    Stan gry: ${gra.koniec ? 'Gra zakonczona' : 'Gra w trakcie'}`);
-}
-function mapa() {
-  for (let i = 1; i <= 4; i++) {
-    console.log(`${nazwaPokoju(i)} ${i == gra.pokoj ? "-> Aktualny pokoj" : ""}`)
-  }
-}
-function rozejrzyj() {
-  switch (gra.pokoj) {
-    case 1:
-      console.log(`${!gra.karta ? "Karta lezy na biurku" : "Wszystko w tym pokoju zostało zebrane"}`)
-      break
-    case 2:
-      console.log(`${!gra.bezpiecznik && !gra.zasilanie ? "Bezpiecznik leży na półce" : "Wszystko w tym pokoju zostało zabrane"}`)
-      break
-    case 3:
-      console.log(`${!gra.zasilanie ? "Zasilanie nie zostało przywrócone" : "Zasilanie zostało przywrócone"}`)
-      break
-    case 4:
-      if (!gra.karta)
-        console.log("Do wyjscia potrzebne jest jeszcze zebranie karty")
-      else if (!gra.zasilanie)
-        console.log("DO wyjscia potrzebne jest jeszcze przywrocenie zasilania")
-      else
-        console.log("Spelniasz wymagania aby opuscic szkole")
-      break
-    default:
-      console.log("Nieznane pomieszczenie")
-  }
-
-function idz(kierunek) {
+  let nastepnyPokoj = gra.pokoj
   switch (kierunek) {
     case "prawo": {
       if(gra.pokoj % 2 == 0 && gra.pokoj < 5) 
@@ -212,7 +161,6 @@ function idz(kierunek) {
   gra.pokoj = nastepnyPokoj;
   rozejrzyj();
 }
-}
 // SEKCJA C — PRZEDMIOTY I WYGRANA
 
 function akcja(co) {
@@ -248,7 +196,9 @@ function akcja(co) {
 
     case "ucieczka":
       if (gra.kluczyki && gra.pokoj == 5) {
-        gra.wygrana
+        gra.wygrana = true
+        gra.koniec = true
+        zakonczTure()
       } else if (gra.pokoj != 5) {
         console.log("Akcja wykonana w niewlasciwym pokokju");
       } else {
@@ -257,14 +207,18 @@ function akcja(co) {
       break;
     
     case "sekret":
-      let num = Math.floor(Math.random() * (100 - 1) + 1)
-      if(num > 80) {
-        console.log("Znalazles sekretna bron na epsztojke!")
-        gra.bron = true
+      if(gra.pokoj == 2) {
+        let num = Math.floor(Math.random() * (100 - 1) + 1)
+        if(num > 80) {
+          console.log("Znalazles sekretna bron na epsztojke!")
+          gra.bron = true
+        }
+        else
+          console.log("Nic nie znalazles... ale możesz szukać dalej!")
+        zakonczTure()
       }
       else
-        console.log("Nic nie znalazles... ale możesz szukać dalej!")
-      zakonczTure()
+        console.log("Akcja wykonana w złym pokoju")
       break;
 
     default:
