@@ -16,4 +16,4 @@ Ruch w lewo oraz w prawo powinien zablokować możliwość wyjścia poza pokoje 
 
 Oczekiwany wynik: Nie można wyjść poza pokoje, energia spada w dół po ruchu i pokoje są przesuwane. 
 
-Otrzymany wynik: 
+Otrzymany wynik: Taki jak oczekiwany
