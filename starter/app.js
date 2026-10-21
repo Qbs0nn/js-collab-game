@@ -186,8 +186,8 @@ function importJSON(text) {
   } catch (e) {
     throw new Error("Zle dane importu.")
   }
-    if(!Number.isInteger(gra.pokoj) || gra.pokoj < 1 || gra.pokoj > 4) {return false}
-    if(!Number.isInteger(gra.energia) || gra.energia < 0 || gra.energia > 10 ) {return false}
+    if(!Number.isInteger(gra.pokoj) || gra.pokoj < 1 || gra.pokoj > 5) {return false}
+    if(!Number.isInteger(gra.energia) || gra.energia < 0 || gra.energia > 13 ) {return false}
     if(typeof gra.karta !== "boolean") {return false}
     if(typeof gra.kluczyki !== "boolean") {return false}
     if(typeof gra.koniec !== "boolean") {return false}
