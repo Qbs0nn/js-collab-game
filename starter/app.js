@@ -1,8 +1,15 @@
+<<<<<<< HEAD
+let gra
+function start() {
+  gra = stan
+  console.log("UCIECZKA Z WYSPY. Epsztojek wraca za 10 tur.");
+=======
 let gra;
 
 function start() {
   gra = stan;
   console.log("UCIECZKA Z WYSPY. Epsztojek wraca za 13 tur.");
+>>>>>>> e93a344b4ff63375f6b4daff7e59688d5e7bafb8
   pomoc();
   rozejrzyj();
 }
@@ -135,6 +142,44 @@ function idz(kierunek) {
     console.log("Nie możesz wykonać ruchu po końcu gry.");
     return;
   }
+}
+function pomoc() {
+  console.log('Dostepne: start(), pomoc(), status(), mapa(), rozejrzyj(), idz("prawo"), idz("lewo"), akcja("karta"), akcja("bezpiecznik"), akcja("napraw"), akcja("wyjscie")');
+  // TODO A5: dopisz pozostale kierunki i akcje oraz zasade kosztu.
+}
+function status() {
+  console.log(`Aktualny status: Pokój: ${nazwaPokoju(gra.pokoj)}; pozostała energia: ${gra.energia}; posiadane przedmioty: ${gra.karta ? 'karta' : ''}
+    ${gra.bezpiecznik ? 'bezpiecznik' : ''}; Stan zasilania: ${gra.zasilanie ? 'Zasilanie włączone!' : 'Zasilanie wyłączone'};
+    Stan gry: ${gra.koniec ? 'Gra zakonczona' : 'Gra w trakcie'}`);
+}
+function mapa() {
+  for (let i = 1; i <= 4; i++) {
+    console.log(`${nazwaPokoju(i)} ${i == gra.pokoj ? "-> Aktualny pokoj" : ""}`)
+  }
+}
+function rozejrzyj() {
+  switch (gra.pokoj) {
+    case 1:
+      console.log(`${!gra.karta ? "Karta lezy na biurku" : "Wszystko w tym pokoju zostało zebrane"}`)
+      break
+    case 2:
+      console.log(`${!gra.bezpiecznik && !gra.zasilanie ? "Bezpiecznik leży na półce" : "Wszystko w tym pokoju zostało zabrane"}`)
+      break
+    case 3:
+      console.log(`${!gra.zasilanie ? "Zasilanie nie zostało przywrócone" : "Zasilanie zostało przywrócone"}`)
+      break
+    case 4:
+      if (!gra.karta)
+        console.log("Do wyjscia potrzebne jest jeszcze zebranie karty")
+      else if (!gra.zasilanie)
+        console.log("DO wyjscia potrzebne jest jeszcze przywrocenie zasilania")
+      else
+        console.log("Spelniasz wymagania aby opuscic szkole")
+      break
+    default:
+      console.log("Nieznane pomieszczenie")
+  }
+}
 
   switch (kierunek) {
     case "prawo": {
@@ -235,9 +280,32 @@ function akcja(co) {
   }
 }
 
-function eksport() {
-  const jsonString = JSON.stringify(gra, null, 2);
+function exportJSON() {
+  const jsonString = JSON.stringify(gra);
   return jsonString;
 }
 
+function importJSON(text) {
+  let data;
+  try {
+    data = JSON.parse(text);
+    if (data === null || typeof data !== "object") { return false }
+  } catch (e) {
+    throw new Error("Zle dane importu.")
+  }
+    if(!Number.isInteger(gra.pokoj) || gra.pokoj < 1 || gra.pokoj > 5) {return false}
+    if(!Number.isInteger(gra.energia) || gra.energia < 0 || gra.energia > 13 ) {return false}
+    if(typeof gra.karta !== "boolean") {return false}
+    if(typeof gra.kluczyki !== "boolean") {return false}
+    if(typeof gra.koniec !== "boolean") {return false}
+    if(typeof gra.wygrana !== "boolean") {return false}
+
+  gra.pokoj = data.pokoj;
+  gra.energia = data.energia;
+  gra.karta = data.karta;
+  gra.kluczyki = data.kluczyki;
+  gra.koniec = data.koniec;
+  gra.wygrana = data.wygrana;
+  return
+}
 start();
