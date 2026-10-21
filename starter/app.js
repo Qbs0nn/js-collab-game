@@ -1,15 +1,8 @@
-<<<<<<< HEAD
-let gra
-function start() {
-  gra = stan
-  console.log("UCIECZKA Z WYSPY. Epsztojek wraca za 10 tur.");
-=======
 let gra;
 
 function start() {
   gra = stan;
   console.log("UCIECZKA Z WYSPY. Epsztojek wraca za 13 tur.");
->>>>>>> e93a344b4ff63375f6b4daff7e59688d5e7bafb8
   pomoc();
   rozejrzyj();
 }
