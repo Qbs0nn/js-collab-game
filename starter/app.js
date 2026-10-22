@@ -7,6 +7,7 @@ function start() {
 }
 
 function zakonczTure() {
+  gra.energia--
   if(gra.lostFight) {
     gra.koniec = true
     console.log("Zrestartuj gre przy użyciu start() aby spróbować jeszcze raz...")
@@ -20,7 +21,6 @@ function zakonczTure() {
     console.log("PRZEGRANA. Nie uciekłeś na czas z wyspy. Wpisz start().");
     return
   } else if (gra.energia > 0 && !gra.lostFight) {
-    gra.energia = gra.energia - 1;
     console.log("Pozostala energia: " + gra.energia);
     return
   }
@@ -101,8 +101,10 @@ function rozejrzyj() {
               console.log("Epsztojka pojawia się przed tobą, zasłania ci drogę do motorówki... musicie walczyć")
 
               setTimeout(() => {
-                if(gra.bron)
+                if(gra.bron){
                 console.log("Posiadałeś broń! Epe na jej widok uciekł, a dla ciebie droga jest wolna!")
+                gra.didFightOccur = true;
+                }
                 else {
                   setTimeout(() => {
                     console.log("Twoje szanse na sukces wynoszą 25%...")
@@ -110,6 +112,7 @@ function rozejrzyj() {
                     setTimeout(() => {
                       if(num >= 75) {
                         console.log("Udało sie! Szybko, masz czas aby uciec!!!")
+                        gra.didFightOccur = true;
                         zakonczTure()
                       }
                       else {
@@ -142,6 +145,7 @@ function rozejrzyj() {
   }
 }
 function idz(kierunek) {
+  if(gra.energia === 0) {return}
   let nastepnyPokoj = gra.pokoj
   switch (kierunek) {
     case "prawo": {
@@ -183,6 +187,7 @@ function idz(kierunek) {
   }
 
   gra.pokoj = nastepnyPokoj;
+  if(gra.energia === 0) {return}
   rozejrzyj();
 }
 // SEKCJA C — PRZEDMIOTY I WYGRANA
