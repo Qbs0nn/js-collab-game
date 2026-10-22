@@ -231,7 +231,7 @@ function akcja(co) {
       break;
     
     case "sekret":
-      if(gra.pokoj == 2) {
+      if(gra.pokoj == 2 && !gra.bron) {
         let num = Math.floor(Math.random() * (100 - 1) + 1)
         if(num > 80) {
           console.log("Znalazles sekretna bron na epsztojke!")
@@ -241,6 +241,8 @@ function akcja(co) {
           console.log("Nic nie znalazles... ale możesz szukać dalej!")
         zakonczTure()
       }
+      else if(gra.pokoj == 2 && gra.bron) 
+        console.log("Znalazłeś już broń! Nie ma tutaj już innych przedmiotów")
       else
         console.log("Akcja wykonana w złym pokoju")
       break;
