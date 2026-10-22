@@ -44,7 +44,14 @@ function nazwaPokoju(numer) {
 }
 
 function pomoc() {
-  console.log('Dostepne: start(), pomoc(), status(), mapa(), rozejrzyj(), idz("prawo"), idz("lewo"), akcja("karta"), akcja("sekret"), akcja("kluczyki"), akcja("ucieczka")');
+  console.log("Dostępne komendy: ")
+  console.log('1. start() -> rozpoczyna na nowo rozgrywke')
+  console.log('2. pomoc() -> wyświetla na nowo dostępne komendy i ważne zasady')
+  console.log('3. status() -> wyświetla status rozgrywki')
+  console.log('4. mapa() -> Wyświetla spis pokoi oraz pokój, w którym obecnie jesteś')
+  console.log('5. rozejrzyj() -> Wyświetla informacje o pokoju, w którym obecnie jesteś')
+  console.log('6. idz("prawo"), idz("lewo") -> Wykonuje akcje ruchu i kończy ture')
+  console.log('7. akcja("karta"), akcja("sekret"), akcja("kluczyki"), akcja("ucieczka") -> Wykonuje interakcje')
   console.log(`W tej wersji gry zle wykonany ruch rowniez zuzywa energie`);
   console.log(`[] -> pozostała energia, {} -> zużyta energia`);
 }
@@ -60,7 +67,6 @@ function status() {
       Pokój: ${nazwaPokoju(gra.pokoj)}
       pozostała energia: ${gra.energia}
       posiadane przedmioty: ${gra.karta ? 'karta' : ''} ${gra.bezpiecznik ? 'bezpiecznik' : ''}
-      Stan zasilania: ${gra.zasilanie ? 'Zasilanie włączone!' : 'Zasilanie wyłączone'};
       Stan gry: ${gra.koniec ? 'Gra zakonczona' : 'Gra w trakcie'}
       ${gra.bron ? 'Posiadasz bron' : ''}`);
 }
