@@ -149,30 +149,25 @@ function idz(kierunek) {
   let nastepnyPokoj = gra.pokoj
   switch (kierunek) {
     case "prawo": {
-      if(gra.pokoj % 2 == 0 && gra.pokoj < 5) {
+      if(gra.pokoj % 2 == 0 && gra.pokoj < 5) 
         nastepnyPokoj += 1
-        zakonczTure()
-      }
-      else if(gra.pokoj % 2 == 1) {
+      else if(gra.pokoj % 2 == 1)
         nastepnyPokoj -= 1
-        zakonczTure()
-      }
+
       if(nastepnyPokoj == 0) {
         console.log("Napotkales sciane!")
         nastepnyPokoj = 1
       }
+      zakonczTure()
       break;
     }
 
     case "lewo": {
-      if(gra.pokoj % 2 == 1 && gra.pokoj <= 5) { 
+      if(gra.pokoj % 2 == 1 && gra.pokoj <= 5) 
         nastepnyPokoj += 1
-        zakonczTure()
-      }
-      else if(gra.pokoj % 2 == 0) {
+      else if(gra.pokoj % 2 == 0)
         nastepnyPokoj -= 1
-        zakonczTure()   
-      }   
+      
       if(nastepnyPokoj == 0) {
         console.log("Napotkales sciane!")
         nastepnyPokoj = 1
@@ -181,6 +176,7 @@ function idz(kierunek) {
         console.log("Idziesz w złym kierunku...")
         nastepnyPokoj = 5
       }
+      zakonczTure()
       break;
     }
 
