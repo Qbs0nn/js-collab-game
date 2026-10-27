@@ -1,13 +1,4 @@
 
-# liteowki w akcjach nie powinny zuzywac energii, 
-# reset gry
-# nie mozna nic zrobic po koncu gry, 
-
-
-
-
-
-
 
 # 1 RUCH W LEWO I PRAWO.
 TEST: Ruch w lewo oraz w prawo powinien zablokować możliwość wyjścia poza pokoje [1-5]. Energia po ruchu powinna spaść w dół o jeden, oraz pokój po wykonaniu ruchu jest przesuwany (jeżeli jest wykonany poprawnie).
