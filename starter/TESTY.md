@@ -71,3 +71,5 @@ Test: Czy po koncu gry mozna cos jeszcze robic (akcje, idz itp).
 Oczekiwany wynik: Koniec gry skutkuje zablokowaniem jakiejkolwiek mozliwosci akcji badz poruszania sie.
 
 ## Otrzymany wynik: Zgodny z oczekiwanym.
+
+## Sprawdzał Jakub Dziennik
