@@ -52,7 +52,7 @@ function pomoc() {
   console.log('5. rozejrzyj() -> Wyświetla informacje o pokoju, w którym obecnie jesteś')
   console.log('6. idz("prawo"), idz("lewo") -> Wykonuje akcje ruchu i kończy ture')
   console.log('7. akcja("karta"), akcja("sekret"), akcja("kluczyki"), akcja("ucieczka") -> Wykonuje interakcje')
-  console.log(`W tej wersji gry zle wykonany ruch rowniez zuzywa energie`);
+  console.log(`W tej wersji gry zle wykonany ruch rowniez zuzywa energie!! Naprzemienne ruchy lewo, prawo, lewo, prawo postepuja gre do przodu.`);
   console.log(`[] -> pozostała energia, {} -> zużyta energia`);
 }
 
